@@ -23,7 +23,7 @@ var indexHtmlPath = path.join(__dirname, '../index.html');
 // e.g. angular.js, style.css
 app.use(express.static(publicPath));
 
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
 
 // If we're hitting our home page, serve up our index.html file!
 app.get('/', function (req, res) {
@@ -35,9 +35,13 @@ app.use(function (req, res, next) {
 	next();
 });
 
-app.post("/cards", function (request, response) {
+app.post("/cards", function (request, response, next) {
     console.log("request body", request.body);
-    response.send("Received:" + request.body);
+    FlashCardModel.create(request.body).then(function(card){
+      response.json(card);
+    }).then(null, function(err){
+        next(err);
+    });
 });
 
 app.get('/cards', function (req, res) {

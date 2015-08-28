@@ -14,8 +14,17 @@ app.factory('FlashCardsFactory', function($http) {
       return response.data;
     });
   }
+
+  function makeFlashCard(newCard){
+    return $http.post('/cards/', newCard).then(function(response){
+      console.log("RESPONSE DATA: ",response.data);
+      return response.data;
+    });
+  }
+
   return {
     getFlashCards: getFlashCards,
-    categories: categories
+    categories: categories,
+    makeFlashCard: makeFlashCard
   };
 });
