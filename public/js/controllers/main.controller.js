@@ -9,6 +9,8 @@ app.controller('MainController', function ($scope, FlashCardsFactory, $log, Scor
       ScoreFactory.reset();
       $scope.selectedCategory = category;
       $scope.flashCards = cards;
+      FlashCardsFactory.currentCategory = category;
+      FlashCardsFactory.cards = cards;
     }).catch(function(err){
       $log.error('error getting cards:', err);
     }).finally(function(){

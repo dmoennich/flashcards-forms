@@ -7,6 +7,9 @@ app.factory('FlashCardsFactory', function($http) {
     'Node'
   ];
 
+  var cards = null;
+  var currentCategory = null;
+
   function getFlashCards (category) {
     var config = {};
     if (category) config.params = { category: category };
@@ -25,6 +28,8 @@ app.factory('FlashCardsFactory', function($http) {
   return {
     getFlashCards: getFlashCards,
     categories: categories,
-    makeFlashCard: makeFlashCard
+    makeFlashCard: makeFlashCard,
+    cards: cards,
+    currentCategory: currentCategory
   };
 });

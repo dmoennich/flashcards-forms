@@ -1,0 +1,28 @@
+<div ng-controller="NewCardController">
+  <form name="newCardForm" ng-submit="makeNewCard()" class="newCardForm">
+    <h1>Add a new card</h1>
+    <label for="question">Question
+      <input type="text" name="question" ng-model="newCard.question" required="true" ng-minlength="15"/>
+    </label>
+    <label for="category">Category</label>
+    <select name="category" ng-model="newCard.category" required="true">
+        <option ng-repeat="category in categories">{{ category }}</option>
+    </select>
+    <div ng-repeat="answer in newCard.answers">
+        <label for="answer{{ $index + 1}}">Answer {{ $index + 1}}</label>
+        <input type="text" name="answer{{ $index + 1}}" ng-model="answer.text" ng-maxlength="40"/>
+        <input type="checkbox" name="correct{{ $index + 1}}" ng-model="answer.correct" />
+    </div>
+
+    <div style="color:maroon" role="alert">
+      <div ng-show="newCardForm.question.$error.required">Questions are required</div>
+      <div ng-show="newCardForm.question.$error.minlength">Questions must be at least 15 characters</div>
+      <div ng-show="newCardForm.category.$error.required">Category is a required field</div>
+      <div ng-show="newCardForm.answer1.$error.maxlength">Answer 1 is too long</div>
+      <div ng-show="newCardForm.answer2.$error.maxlength">Answer 2 is too long</div>
+      <div ng-show="newCardForm.answer3.$error.maxlength">Answer 3 is too long</div>
+    </div>
+
+    <input type="submit" value="Submit!"/>
+  </form>
+</div>

@@ -62,6 +62,17 @@
   .answer-feedback.incorrect {
     color: red; }
 
+.newCardForm {
+  float: left;
+  border: solid 2px black;
+  padding: 2%;
+  margin: 2%;
+}
+
+/*.newCardForm > input {
+  display: block;
+}*/
+
 #statistics {
   padding: 40px; }
   #statistics:before, #statistics:after {

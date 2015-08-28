@@ -36,7 +36,6 @@ app.use(function (req, res, next) {
 });
 
 app.post("/cards", function (request, response, next) {
-    console.log("request body", request.body);
     FlashCardModel.create(request.body).then(function(card){
       response.json(card);
     }).then(null, function(err){
