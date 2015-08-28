@@ -1,4 +1,5 @@
 var path = require('path');
+var bodyParser = require("body-parser");
 var express = require('express');
 var FlashCardModel = require('./models/flash-card-model');
 
@@ -22,14 +23,21 @@ var indexHtmlPath = path.join(__dirname, '../index.html');
 // e.g. angular.js, style.css
 app.use(express.static(publicPath));
 
+app.use(bodyParser.urlencoded({extended: false}));
+
 // If we're hitting our home page, serve up our index.html file!
 app.get('/', function (req, res) {
     res.sendFile(indexHtmlPath);
 });
 
 app.use(function (req, res, next) {
-	console.log('made it')
+	console.log('made it');
 	next();
+});
+
+app.post("/cards", function (request, response) {
+    console.log("request body", request.body);
+    response.send("Received:" + request.body);
 });
 
 app.get('/cards', function (req, res) {
@@ -37,7 +45,7 @@ app.get('/cards', function (req, res) {
     var modelParams = {};
 
     if (req.query.category) {
-    	modelParams.category = req.query.category;
+        modelParams.category = req.query.category;
     }
 
     FlashCardModel.find(modelParams, function (err, cards) {

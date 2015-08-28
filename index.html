@@ -22,10 +22,25 @@
             <button class="category-button" ng-click="getCategoryCards()" ng-class="{ active: selectedCategory === undefined }">All</button>
             <loader ng-show="loading"></loader>
         </div>
+        <div ng-controller="NewCardController">
+            <label for="question">Question</label>
+            <input type="text" name="question" ng-model="newCard.question" />
+            <label for="category">Category</label>
+            <select name="category" ng-model="newCard.category">
+                <option ng-repeat="category in categories">{{ category }}</option>
+            </select>
+            <div>{{newCard | json}}</div>
+            <div ng-repeat="answer in newCard.answers">
+                <label for="answer{{ $index + 1}}">Answer {{ $index + 1}}</label>
+                <input type="text" name="answer{{ $index + 1}}" ng-model="answer.text" />
+                <input type="checkbox" name="correct{{ $index + 1}}" ng-model="answer.correct" />
+            </div>
+        </div>
         <flash-card card="flashCard" ng-hide="loading" ng-repeat="flashCard in flashCards | orderBy : 'question'"></flash-card>
         <script src="/js/app.js"></script>
         <script src="/js/controllers/main.controller.js"></script>
         <script src="/js/controllers/score.controller.js"></script>
+        <script src="/js/controllers/newcard.controller.js"></script>
         <script src="/js/factories/flashcard.factory.js"></script>
         <script src="/js/factories/score.factory.js"></script>
         <script src="/js/directives/loader/loader.js"></script>
