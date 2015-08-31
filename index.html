@@ -16,14 +16,17 @@
             <h3>Incorrect: <span>{{ scores.incorrect }}</span></h3>
         </div>
     </div>
+    <div ng-controller="NewCardController">
+        <new-card-form card="card"></new-card-form>
+    </div>        
     <div ng-controller="MainController">
         <div class="cats">
             <button border-hover ng-repeat="category in categories" class="category-button" ng-click="getCategoryCards(category)" ng-class="{ active: category === selectedCategory }">{{ category }}</button>
             <button class="category-button" ng-click="getCategoryCards()" ng-class="{ active: selectedCategory === undefined }">All</button>
             <loader ng-show="loading"></loader>
         </div>
-        <new-card-form></new-card-form>
         <flash-card card="flashCard" ng-hide="loading" ng-repeat="flashCard in flashCards | orderBy : 'question'"></flash-card>
+    </div>
         <script src="/js/app.js"></script>
         <script src="/js/controllers/main.controller.js"></script>
         <script src="/js/controllers/score.controller.js"></script>

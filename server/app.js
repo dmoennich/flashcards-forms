@@ -36,11 +36,23 @@ app.use(function (req, res, next) {
 });
 
 app.post("/cards", function (request, response, next) {
-    FlashCardModel.create(request.body).then(function(card){
-      response.json(card);
-    }).then(null, function(err){
-        next(err);
-    });
+
+    console.log(request.body);
+
+    if (request.body._id) {
+        FlashCardModel.findByIdAndUpdate(request.body._id, request.body, {new: true})
+        .then(function (card) {
+            response.json(card);
+        })
+        .then(null, next);
+    } else {
+        FlashCardModel.create(request.body)
+        .then(function (card) {
+            response.json(card);
+        })
+        .then(null, next);
+    }
+
 });
 
 app.get('/cards', function (req, res) {

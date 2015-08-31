@@ -1,14 +1,14 @@
-<div ng-controller="NewCardController">
-  <form name="newCardForm" ng-submit="makeNewCard()" class="newCardForm">
+<div><button ng-click="formShow = !formShow">cardForm</button>
+  <form name="newCardForm" ng-show="formShow" ng-submit="makeNewCard()" class="newCardForm">
     <h1>Add a new card</h1>
     <label for="question">Question
-      <input type="text" name="question" ng-model="newCard.question" required="true" ng-minlength="15"/>
+      <input type="text" name="question" ng-model="card.question" required="true" ng-minlength="15"/>
     </label>
     <label for="category">Category</label>
-    <select name="category" ng-model="newCard.category" required="true">
+    <select name="category" ng-model="card.category" required="true">
         <option ng-repeat="category in categories">{{ category }}</option>
     </select>
-    <div ng-repeat="answer in newCard.answers">
+    <div ng-repeat="answer in card.answers">
         <label for="answer{{ $index + 1}}">Answer {{ $index + 1}}</label>
         <input type="text" name="answer{{ $index + 1}}" ng-model="answer.text" ng-maxlength="40"/>
         <input type="checkbox" name="correct{{ $index + 1}}" ng-model="answer.correct" />
